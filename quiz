@@ -1,0 +1,61 @@
+import random
+
+# Sample Questions (You can expand this with more questions)
+questions = {
+    "easy": [
+        {"question": "What is the capital of France?", "options": ["A) Berlin", "B) Paris", "C) Rome"], "answer": "B"},
+        {"question": "2 + 2 = ?", "options": ["A) 3", "B) 4", "C) 5"], "answer": "B"}
+    ],
+    "medium": [
+        {"question": "What is the square root of 16?", "options": ["A) 3", "B) 4", "C) 5"], "answer": "B"},
+        {"question": "Who wrote 'Hamlet'?", "options": ["A) Charles Dickens", "B) Mark Twain", "C) William Shakespeare"], "answer": "C"}
+    ],
+    "hard": [
+        {"question": "What is the chemical symbol for gold?", "options": ["A) Au", "B) Ag", "C) Fe"], "answer": "A"},
+        {"question": "In which year did the Titanic sink?", "options": ["A) 1905", "B) 1912", "C) 1918"], "answer": "B"}
+    ]
+}
+
+# Game Function
+def quiz_game():
+    print("Welcome to the Quiz Game!")
+    topic = input("Choose a topic (e.g., general): ")
+    difficulty = input("Choose difficulty level (easy, medium, hard): ").lower()
+    
+    if difficulty not in questions:
+        print("Invalid difficulty level. Defaulting to easy.")
+        difficulty = "easy"
+    
+    score = 0
+    question_set = questions[difficulty]
+    random.shuffle(question_set)
+    
+    for q in question_set:
+        print("\n" + q["question"])
+        for option in q["options"]:
+            print(option)
+        answer = input("Your answer (A/B/C): ").upper()
+        
+        if answer == q["answer"]:
+            print("Correct!")
+            score += 1
+        else:
+            print(f"Incorrect! The correct answer was {q['answer']}.")
+    
+    print(f"\nYour final score is {score}/{len(question_set)}.")
+    
+    if score == len(question_set):
+        print("Excellent! You got all answers correct!")
+    elif score >= len(question_set) // 2:
+        print("Good job! You got most of the answers right.")
+    else:
+        print("Keep practicing!")
+    
+    replay = input("\nDo you want to play again? (yes/no): ").lower()
+    if replay == "yes":
+        quiz_game()
+    else:
+        print("Thanks for playing!")
+
+# Run the game
+quiz_game()
